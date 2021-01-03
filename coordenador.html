@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Coordenador</title>
+    <!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js">
+    </script> -->
+    <script src="jquery-3.4.1.min.js"></script>
+</head>
+
+<body>
+
+    <h1>Bem-Vindo</h1>
+    <h1>Sistema de Gerenciamento de Atividades Complementares</h1>
+    <h2>Página do Coodenador</h2>
+
+    <div>
+        <!--Criar professor-->
+        <p>Adicionar Professores</p>
+        <label for="matricula_prof">Digite a matrícula:</label>
+        <input type="text" id="matricula_prof" name="matricula_prof" />
+        <br><br>
+
+        <label for="nome_prof">Digite o nome:</label>
+        <input type="text" id="nome_prof" name="nome_prof" />
+        <br><br>
+
+        <label for="curso_prof">Digite o id curso:</label>
+        <input type="text" id="curso_prof" name="curso_prof" />
+        <br><br>
+
+        <label for="tipo_prof">Digite o tipo:</label>
+        <input type="text" id="tipo_prof" name="tipo_prof" />
+        <br><br>
+
+        <label for="login_prof">Criar o login:</label>
+        <input type="text" id="login_prof" name="login_prof" />
+        <br><br>
+
+        <label for="senha_prof">Criar a senha:</label>
+        <input type="text" id="senha_prof" name="senha_prof" />
+        <br><br>
+
+    </div>
+
+    <br>
+    <button id="salvar_prof" onclick="salvar_prof()">Salvar Professor</button>
+    <br>
+
+    <div id="saida_prof">
+
+    </div>
+
+
+    <br><br>
+    <!--Criar atividades-->
+    <label for="atividade">Nome da atividade:</label>
+    <input type="text" id="atividade" name="atividade" />
+    <br><br>
+
+    <label for="hora_max">Carga horária máxima:</label>
+    <input type="number" id="hora_max" name="hora_max" />
+    <br><br>
+    <div>
+
+    </div>
+
+    <br>
+    <button id="salvar_ativ" onclick="salvar_ativ()">Salvar</button>
+
+    <div id="saida_ativ">
+
+    </div>
+
+    <script src="codigos.js"></script>
+
+</body>
+
+</html>

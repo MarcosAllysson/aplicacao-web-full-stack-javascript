@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Cursos</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js">
+    </script>
+</head>
+
+<body>
+
+    <h1>Bem-Vindo</h1>
+    <h2>Confira a tabela Cursos</h2>
+    <div>
+        <label>Id do curso</label>
+        <input type="number" id="id_cursos" />
+        <br><br>
+
+        <label>Digite o Nome do Curso</label>
+        <input type="text" id="nome_curso" />
+        <br><br>
+
+        <label>Digite a carga horária Máxima do curso:</label>
+        <input type="text" id="carga_hor_max" />
+        <button onclick="reload()">Recarregar a pagina</button>
+    </div>
+    <div>
+        <button onclick="inserirCursos()">Inserir</button>
+        <button onclick="atualizarCurso()">Atualizar</button>
+        <button onclick="removerCurso()">Remover</button>
+        <button onclick="verCursos()">Ver Cursos</button>
+        <button onclick="ordernarCursos()">Ordernar Cursos pelo nome</button>
+        <button onclick="join()">Inner Join</button>
+        <button onclick="mediaHorCursos()">Média das Horas dos cursos</button>
+    </div>
+    <div>
+        <label>Busca da carga horaria entre </label>
+        <input type="number" name="" id="range1">
+        e
+        <input type="number" name="" id="range2">
+        <button onclick="searchIn()">Buscar</button>
+    </div>
+    <p id='mensagem'></p>
+
+    <div class="tCurso"></div>
+    <div class="tCurso"></div>
+    <script>
+        function searchIn() {
+            $.ajax({
+                type: 'POST',
+                url: 'http://localhost:3000/buscaIn',
+                data:{
+                    "range1":$('#range1').val(),
+                    "range2":$('#range2').val(),
+                },
+                success: function (dados) {
+                        $('.tCurso').eq(0).html(`<p>SELECT * FROM cursos WHERE carga_hor_max in(${$('#range1').val()},${$('#range2').val()})</p>`)
+                        for(let i in dados){
+                        $('.tCurso').eq(1).append(
+                            `<table>
+                                <tr>
+                                    <td>${dados[i].nome_curso}</td>
+                                    <td>${dados[i].carga_hor_max}</td>
+                                </tr>
+                            </table>`)
+                        console.log(dados);
+                    }
+                },
+                error: function (dados) {
+                    console.log(dados);
+
+                }
+            })
+        }
+        function reload(){location.reload();}
+        function mediaHorCursos() {
+            $.ajax({
+                type: 'GET',
+                url: 'http://localhost:3000/avg',
+                success: function (dados) {
+                        $('.tCurso').eq(0).html('<p>SELECT AVG(carga_hor_max) FROM cursos</p>')
+                        $('.tCurso').eq(1).append(
+                            `<table>
+                                <tr>
+                                    <td>${dados[0].avg}</td>
+                                </tr>
+                            </table>`)
+                        console.log(dados);
+                },
+                error: function (dados) {
+                    console.log(dados);
+
+                }
+            })
+        }
+        function join() {
+            $.ajax({
+                type: 'GET',
+                url: 'http://localhost:3000/teste',
+                success: function (dados) {
+                    for (let i in dados) {
+                        $('.tCurso').eq(0).html('<p>SELECT atividades.nome_ativ, usuarios.nome FROM usuarios INNER JOIN atividades ON atividades.id_cursos_at = usuarios.id_cursos_user</p>')
+                        $('.tCurso').eq(1).append(
+                            `<table>
+                                <tr>
+                                    <td>${dados[i].nome_ativ}</td>
+                                    <td>${dados[i].nome}</td>
+                                </tr>
+                            </table>`)
+                        console.log(dados[i]);
+                    }
+                },
+                error: function (dados) {
+                    console.log(dados);
+
+                }
+            })
+        }
+        function verCursos() {
+            $.ajax({
+                type: 'GET',
+                url: 'http://localhost:3000/cursos',
+                success: function (dados) {
+                    for (let i in dados) {
+                        $('.tCurso').eq(0).html('<table><tr><td>Id</td><td>Nome do Curso</td><td>Carga Horária Máxima</td></tr></table>')
+                        $('.tCurso').eq(1).append(
+                            `<table>
+                                <tr>
+                                    <td>${dados[i].id_cursos}</td>
+                                    <td>${dados[i].nome_curso}</td>
+                                    <td>${dados[i].carga_hor_max}</td>
+                                </tr>
+                            </table>`)
+                        console.log(dados[i]);
+                    }
+
+                },
+                error: function (dados) {
+                    console.log(dados);
+
+                }
+            })
+        }
+        function ordernarCursos() {
+            $.ajax({
+                type: 'GET',
+                url: 'http://localhost:3000/cursosOrder',
+                success: function (dados) {
+                    for (let i in dados) {
+                        $('.tCurso').eq(1).append(
+                            `<table>
+                                <tr>
+                                    <!--<td>${dados[i].id_cursos}</td>-->
+                                    <td>${dados[i].nome_curso}</td>
+                                    <!--<td>${dados[i].carga_hor_max}</td>-->
+                                </tr>
+                            </table>`)
+                        console.log(dados[i]);
+                    }
+
+                },
+                error: function (dados) {
+                    console.log(dados);
+
+                }
+            })
+        }
+        function inserirCursos() {
+            $.ajax({
+                type: 'POST',
+                url: 'http://localhost:3000/cursos',
+                data: {
+                    'id': $('#id_cursos').val(),
+                    'nome': $('#nome_curso').val(),
+                    'carga': $('#carga_hor_max').val(),
+                },
+                success: function (dados) {
+                    console.log(dados);
+
+                    $('#mensagem').text(`Curso inserido com sucesso`);
+                },
+                error: function (dados) {
+                    console.log(dados);
+
+                    $('#mensagem').text(`Curso inserido sem sucesso`);
+                }
+            })
+        }
+        function atualizarCurso() {
+            $.ajax({
+                type: 'PUT',
+                url: 'http://localhost:3000/cursos',
+                data: {
+                    'id': $('#id_cursos').val(),
+                    'nome': $('#nome_curso').val(),
+                    'carga': $('#carga_hor_max').val(),
+                },
+                success: function (dados) {
+                    console.log(dados);
+                    $('#mensagem').text(`Curso Atualizado com sucesso`);
+                },
+                error: function (dados) {
+                    console.log(dados);
+                    $('#mensagem').text(`Curso Atualizado sem sucesso`);
+                }
+            })
+        }
+        function removerCurso() {
+            $.ajax({
+                type: 'DELETE',
+                url: 'http://localhost:3000/cursos',
+                data: {
+                    'id': $('#id_cursos').val(),
+                    'nome': $('#nome_curso').val(),
+                    'carga': $('#carga_hor_max').val(),
+                },
+                success: function (dados) {
+                    console.log(dados);
+                    $('#mensagem').text(`Curso Removido com sucesso`);
+                },
+                error: function (dados) {
+                    console.log(dados);
+                    $('#mensagem').text(`Curso Removido sem sucesso`);
+                }
+            })
+        }
+    </script>
+</body>
+
+</html>

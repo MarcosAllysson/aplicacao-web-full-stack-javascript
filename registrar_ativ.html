@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Atividades Complementares IFB</title>
+    <!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> -->
+    <script src="jquery-3.4.1.min.js"></script>
+</head>
+
+<body>
+
+    <h1>Registre suas Atividades Complementares</h1>
+
+    <div>
+        <label for="semestre">Digite o semestre que realizou a atividade</label>
+        <input type="text" id="semestre" name="semestre" />
+        <br><br>
+
+        <label for="atividade">Digite a atividade:</label>
+        <input type="text" id="atividade" name="atividade" />
+        <br><br>
+
+        <label for="horas">Digite a carga horária da atividade:</label>
+        <input type="text" id="horas" name="horas" />
+
+    </div>
+
+    <br>
+    <button id="enviar_at" onclick="enviarAtividade()">Enviar</button>
+    <br>
+    <div id="atividade_aluno">
+        <label> ID:</label><input type="number" id="id_at_al">
+        <button id="cons_at" onclick="filtrar_al()">Mostrar todas as Atividades do Aluno</button>
+
+    </div>
+
+    <p id="mensagem">
+        <!--Mensagem de envio-->
+
+    </p>
+
+    <!-- Quadro das atividades-->
+    <br>
+    <button id="cons_at" onclick="mostrarAtividade()">Mostrar todas as Atividades</button>
+
+
+    <div>
+        <!--Div para mostrar o quadro com as atividades realizadas (oculto)-->
+
+    </div>
+    <!-- Fim do quadro-->
+
+    <br>
+    <div id="saida">
+
+    </div>
+
+    <script>
+        function enviarAtividade() {
+            $.ajax({
+                type: 'POST',
+                url: 'http://localhost:3000/atividade',
+                data: {
+                    'Semestre': $('#semestre').val(),
+                    'atividade': $('#atividade').val(),
+                    'horas': $('#horas').val(),
+                },
+                success: function (dados) {
+                    $('#mensagem').text(`Atividades inseridas com sucesso`);
+                },
+                error: function (dados) {
+                    $('#mensagem').text(`Atividades inseridas sem sucesso`);
+                }
+            })
+        }
+        // Mostrando as atividades 
+        function mostrarAtividade() {
+            $.ajax({
+                type: 'GET',
+                url: 'http://localhost:3000/atividade',
+                success: function (dados) {
+                    for (let i in dados) {
+                        $('#saida').append(`<table border='1'>
+                        <tr>
+                            <td>Id Atividade</td>
+                            <td>Nome da Atividade</td>
+                            <td>id_curso</td>
+                        </tr>
+                        <tr>
+                            <td>${dados[i].id_atividade}</td>
+                            <td>${dados[i].nome_ativ}</td>
+                            <td>${dados[i].id_cursos_at}</td>
+                        </tr>
+                        
+                        </table>`);
+                    }
+
+                    console.log(dados);
+
+                },
+                error: function (dados) {
+                    console.log(dados);
+
+                }
+            })
+        }
+        function filtrar_al() {
+
+            $.ajax({
+                type: 'POST',
+                url: 'http://localhost:3000/filtroAluno',
+                data: {
+                    'id': $('#id_at_al').val()
+                },
+                success: function (dados) {
+                    for (let i in dados) {
+                        $('#saida').append(`<table border='1'>
+                        <tr>
+                            <td>Id Atividade</td>
+                            <td>Nome da Atividade</td>
+                            <td>id_curso</td>
+                        </tr>
+                        <tr>
+                            <td>${dados[i].id_atividade}</td>
+                            <td>${dados[i].nome_ativ}</td>
+                            <td>${dados[i].id_cursos_at}</td>
+                        </tr>
+                        
+                        </table>`);
+                    }
+
+                    console.log(dados);
+
+                },
+                error: function (dados) {
+                    console.log(dados);
+
+                }
+            })
+        }
+    </script>
+</body>
+
+</html>

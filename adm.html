@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>adm</title>
+    <!-- < src="https://code.jquery.com/jquery-3.4.1.min.js">
+    </> -->
+    <script src="jquery-3.4.1.min.js"> </script>
+    <style>
+        h1 {
+            text-align: center;
+            background: chartreuse;
+        }
+
+        h2 {
+            text-align: center;
+            color: white;
+            background: black;
+        }
+
+        .c {
+            color: black;
+            margin: auto;
+            width: 50%;
+            border: 3px solid green;
+            padding: 10px;
+        }
+    </style>
+</head>
+
+
+<body>
+    <h1>Bem-Vindo ao Sistema de Gerenciamento de Atividades Complementares</h1>
+    <h2>Área do Administrador</h2>
+
+    <div class="c">
+        <!--Criar coordenador-->
+        <label for="matricula_coor">Digite a matrícula do coordenador:</label>
+        <input type="text" id="matricula_coor" name="matricula_coor" />
+        <br><br>
+
+        <label for="nome_coor">Digite o nome do coordenador</label>
+        <input type="text" id="nome_coor" name="nome_coor" />
+        <br><br>
+
+        <label for="curso_coor">Digite o id curso do coordenador:</label>
+        <input type="number" id="curso_coor" name="curso_coor" />
+        <br><br>
+
+        <label for="tipo_coor">Digite o tipo:</label>
+        <!--Dúvida-->
+        <input type="text" id="tipo_coor" name="tipo_coor" />
+        <br><br>
+
+        <label for="login_coor">Criar o login do coordenador:</label>
+        <input type="text" id="login_coor" name="login_coor" />
+        <br><br>
+
+        <label for="senha_coor">Criar o senha do coordenador:</label>
+        <input type="password" id="senha_coor" name="senha_coor" />
+        <br><br>
+
+        <!-- <div id="saida_coor2"></div> -->
+        <div id="saida_coor"></div>
+
+        <button id="salvar_coor" onclick="salvar_coor()">Salvar Coordenador</button>
+        <button id="ver_coor" onclick="ver_coor()">Consultar Coordenador</button>
+        <button id="del_coor" onclick="del_coor()">Excluir Coordenador</button>
+
+    </div>
+
+
+    <h2> Curso </h2>
+
+    <div class="c">
+        <!--Criar cursos-->
+        <label>Id do curso</label>
+        <input type="number" id="id_cursos" />
+        <br><br>
+
+        <label for="nome_curso">Nome do curso:</label>
+        <input type="text" id="nome_curso" name="nome_curso" />
+        <br><br>
+
+        <label>Digite a carga horária Máxima do curso:</label>
+        <input type="text" id="carga_hor_max" />
+        
+        <button onclick="reload()">Recarregar a pagina</button>
+        <button onclick="inserirCursos()">Inserir</button>
+        <button onclick="atualizarCurso()">Atualizar</button>
+        <button onclick="removerCurso()">Remover</button>
+        <button onclick="verCursos()">Ver Cursos</button>
+        <button onclick="ordernarCursos()">Ordernar Cursos pelo nome</button>
+        <div>
+            <label>Busca da carga horaria entre </label>
+            <input type="number" name="" id="range1">
+            e
+            <input type="number" name="" id="range2">
+            <button onclick="searchIn()">Buscar</button>
+        </div>
+        <p id='mensagem'></p>
+    </div>
+
+    <div class="tCurso"></div>
+    <div class="tCurso"></div>
+
+    <h2> Consultando Alunos | Cursos </h2>
+    <div class=c>
+        <!-- <p>  <label for="nomeAluno"> ID do Aluno: </label> 
+        <input type="text" id="nomeAluno"> </p>
+
+        <p>  <label for="cargaHoraria"> ID Curso: </label> 
+        <input type="number" id="cargaHoraria"/> </p> -->
+
+        <p> Clique no botão para consultar </p>
+
+        <button onclick="consultarAluno()"> Consultar </button>
+    </div>
+
+    <!-- carregar dados vindo da consulta ao banco -->
+    <div class="tableAluno"></div>
+    <div class="tableHora"></div>
+
+
+    <script src="codigos.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Avaliar Atividades</title>
+    <!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js">
+    </script> -->
+    <script src="jquery-3.4.1.min.js"></script>
+</head>
+
+<body>
+
+    <h1>Bem-Vindo</h1>
+    <h1>Sistema de Gerenciamento de Atividades Complementares</h1>
+    <h2>Página do Avaliador</h2>
+
+    <button onclick="ver_ativ_pen()">Ver atividades pendentes</button>
+    <br><br>
+
+    <div id="quadro_atividades">
+
+    </div>
+
+    <div>
+        <label for="matricula">Digite sua matrícula:</label>
+        <input type="text" id="matricula" name="matricula" />
+        <br><br>
+
+        <label>Digite a carga horária Máxima do curso:</label>
+        <input type="text" id="carga_hor_max" />
+
+
+    </div>
+
+    <div>
+        <!--Quadro com as atividades para avaliar-->
+
+    </div>
+
+    <br>
+    <button id="salvar_prof" onclick="aprovar_at()">Aprovar</button>
+
+    <br><br>
+    <button id="salvar_prof" onclick="reprovar_at()">Reprovar</button>
+
+    <div id="saida_Prof">
+        <!--alerta de salvo-->
+
+    </div>
+
+    <script src="codigos.js"></script>
+
+</body>
+
+</html>

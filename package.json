@@ -1,0 +1,26 @@
+{
+  "name": "horas_complementaresifb",
+  "version": "1.0.0",
+  "description": "trabalho",
+  "main": "server.js",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "nodemon": "^1.19.4",
+    "pg": "^7.12.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Andredf51/Horas_complementaresIFB.git"
+  },
+  "author": "André | Douglas | Marcos",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Andredf51/Horas_complementaresIFB/issues"
+  },
+  "homepage": "https://github.com/Andredf51/Horas_complementaresIFB#readme"
+}
